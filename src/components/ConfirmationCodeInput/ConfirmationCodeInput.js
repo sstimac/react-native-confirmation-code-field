@@ -220,7 +220,7 @@ class ConfirmationCodeInput extends PureComponent<Props, State> {
   );
 
   renderInput() {
-    const { autoFocus, inputProps, keyboardType, codeLength } = this.props;
+    const { inputProps, codeLength } = this.props;
 
     return (
       <TextInputCustom
@@ -228,7 +228,6 @@ class ConfirmationCodeInput extends PureComponent<Props, State> {
         ref={this._input}
         maxLength={codeLength}
         {...inputProps}
-        keyboardType={keyboardType}
         onBlur={this.handlerOnBlur}
         onFocus={this.handlerOnFocus}
         onPress={this.handlerOnPress}

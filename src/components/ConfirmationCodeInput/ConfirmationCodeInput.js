@@ -35,7 +35,11 @@ class ConfirmationCodeInput extends PureComponent<Props, State> {
     maskSymbol: '',
   };
 
-  _input = createRef();
+  constructor(props) {
+    super(props);
+
+    this.handleFieldFocused = this.handleFieldFocused.bind(this);
+  }
 
   state = {
     isFocused: false,
@@ -175,10 +179,8 @@ class ConfirmationCodeInput extends PureComponent<Props, State> {
   }
 
   focus() {
-    const { current } = this._input;
-
-    if (current) {
-      current.focus();
+    if (this._input) {
+      this._input.focus();
     }
   }
 
@@ -219,6 +221,11 @@ class ConfirmationCodeInput extends PureComponent<Props, State> {
     }
   };
 
+  handleFieldFocused() {
+    console.log('handling focus');
+    this.setState({ isFocused: true })
+  }
+
   handlerOnFocus = this.inheritTextInputMethod('onFocus', () =>
     this.setState({ isFocused: true }),
   );
@@ -233,11 +240,11 @@ class ConfirmationCodeInput extends PureComponent<Props, State> {
     return (
       <TextInputCustom
         // $FlowFixMe
-        ref={this._input}
+        ref={ref => (this._input = ref)}
         maxLength={codeLength}
         {...inputProps}
         onBlur={this.handlerOnBlur}
-        onFocus={this.handlerOnFocus}
+        onFocus={this.handleFieldFocused}
         onPress={this.handlerOnPress}
         style={concatStyles(styles.maskInput, inputProps.style)}
         onChangeText={this.handlerOnTextChange}

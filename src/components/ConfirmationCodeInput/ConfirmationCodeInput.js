@@ -53,6 +53,14 @@ class ConfirmationCodeInput extends PureComponent<Props, State> {
     |},
   } = {};
 
+  componentDidMount() {
+    const { autoFocus } = this.props;
+
+    if (autoFocus) {
+      this.focus();
+    }
+  }
+
   clear() {
     this.handlerOnTextChange('');
   }
@@ -220,7 +228,7 @@ class ConfirmationCodeInput extends PureComponent<Props, State> {
   );
 
   renderInput() {
-    const { inputProps, codeLength } = this.props;
+    const { inputProps, codeLength, autoFocus } = this.props;
 
     return (
       <TextInputCustom
@@ -233,6 +241,7 @@ class ConfirmationCodeInput extends PureComponent<Props, State> {
         onPress={this.handlerOnPress}
         style={concatStyles(styles.maskInput, inputProps.style)}
         onChangeText={this.handlerOnTextChange}
+        autoFocus={autoFocus}
       >
         {this.state.codeValue}
       </TextInputCustom>
